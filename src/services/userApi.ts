@@ -67,7 +67,6 @@ export const {
   // хук с lazy выполняется только в момент явного вызова хука (сами дергаем запрос).
   useLazyCurrentQuery,
   useLazyGetUserByIdQuery,
-  useLazyUpdateUserMutation,
 } = UserApi
 
 // Экспортируем эндпоинты

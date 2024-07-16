@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query"
+import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react"
 import { BASE_URL } from "../utils/constants"
 import { RootState } from "../app/store"
 
