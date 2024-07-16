@@ -31,9 +31,10 @@ export const api = createApi({
   // Использование настроенного базового запроса с повторными попытками
   baseQuery: baseQueryWithRetry,
   // Путь к редюсеру в хранилище Redux
-  reducerPath: "splitApi",
+  reducerPath: "splitApi", // splitApi это уникальный ключ - имя пути, может быть любым
   // Повторный запрос при монтировании компонента или изменении аргументов
   refetchOnMountOrArgChange: true,
-  // Определение эндпоинтов API (пока пусто)
-  endpoints: () => ({}),
+  // Определение эндпоинтов API
+  endpoints: () => ({}), // при создании отдельных файлов вызывается метод injectEndpoints
+  // или прописываются все эндпоинты внутри :)
 })
