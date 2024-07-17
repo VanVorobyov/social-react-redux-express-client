@@ -18,7 +18,7 @@ export const commentApi = api.injectEndpoints({
     }),
 
     // Эндпоинт для удаления комментария
-    deleteComment: builder.mutation<Comment, string>({
+    deleteComment: builder.mutation<void, string>({
       query: id => ({
         url: `/comments/${id}`, // URL для удаления комментария
         method: "DELETE", // Метод запроса
