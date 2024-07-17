@@ -34,7 +34,7 @@ export const postApi = api.injectEndpoints({
     }),
 
     // Эндпоинт для удаления поста
-    deletePost: builder.mutation<Post, string>({
+    deletePost: builder.mutation<void, string>({
       query: id => ({
         url: `/posts/${id}`, // URL для удаления поста
         method: "DELETE", // Метод запроса
