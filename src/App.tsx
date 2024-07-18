@@ -1,9 +1,16 @@
 import { Button } from "@nextui-org/react"
+import { ThemeContext } from "./components/theme-provider"
+import { useContext } from "react"
 
 const App = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext)
+
   return (
     <div>
-      <Button color="primary">кнопка</Button>
+      <>
+        <div>Тема: {theme}</div>
+        <Button onClick={toggleTheme}>Переключить тему</Button>
+      </>
     </div>
   )
 }

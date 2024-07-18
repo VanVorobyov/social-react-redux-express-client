@@ -6,6 +6,7 @@ import "./index.css"
 import { NextUIProvider } from "@nextui-org/react"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import App from "./App"
+import { ThemeProvider } from "./components/theme-provider"
 
 const container = document.getElementById("root")
 
@@ -27,7 +28,9 @@ if (container) {
     <React.StrictMode>
       <Provider store={store}>
         <NextUIProvider>
-          <RouterProvider router={router} />
+          <ThemeProvider>
+            <RouterProvider router={router} />
+          </ThemeProvider>
         </NextUIProvider>
       </Provider>
     </React.StrictMode>,
