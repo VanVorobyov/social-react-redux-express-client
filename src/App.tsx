@@ -6,12 +6,10 @@ const App = () => {
   const { theme, toggleTheme } = useContext(ThemeContext)
 
   return (
-    <div>
-      <>
-        <div>Тема: {theme}</div>
-        <Button onClick={toggleTheme}>Переключить тему</Button>
-      </>
-    </div>
+    <main className={`${theme} min-h-screen text-foreground bg-background`}>
+      <div>Тема: {theme}</div>
+      <Button onClick={toggleTheme}>Переключить тему</Button>
+    </main>
   )
 }
 
