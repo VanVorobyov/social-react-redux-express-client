@@ -7,13 +7,20 @@ import { NextUIProvider } from "@nextui-org/react"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import App from "./App"
 import { ThemeProvider } from "./components/theme-provider"
+import { Layout } from "./components/layout"
 
 const container = document.getElementById("root")
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <App />,
+      },
+    ],
   },
   {
     path: "/auth",
