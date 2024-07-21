@@ -5,9 +5,13 @@ import { store } from "./app/store"
 import "./index.css"
 import { NextUIProvider } from "@nextui-org/react"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import App from "./App"
 import { ThemeProvider } from "./components/theme-provider"
 import { Layout } from "./components/layout"
+import { CurrentPost } from "./pages/current-post"
+import { Posts } from "./pages/posts"
+import { Followers } from "./pages/followers"
+import { Following } from "./pages/following"
+import { UserProfile } from "./pages/user-profile"
 
 const container = document.getElementById("root")
 
@@ -17,8 +21,24 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "/",
-        element: <App />,
+        path: "",
+        element: <Posts />,
+      },
+      {
+        path: "posts/:id",
+        element: <CurrentPost />,
+      },
+      {
+        path: "users/:id",
+        element: <UserProfile />,
+      },
+      {
+        path: "followers",
+        element: <Followers />,
+      },
+      {
+        path: "following",
+        element: <Following />,
       },
     ],
   },
