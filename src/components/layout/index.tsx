@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom"
 import { ThemeContext } from "../theme-provider"
 
 export const Layout: FC = () => {
-  const { theme, toggleTheme } = useContext(ThemeContext)
+  const { theme } = useContext(ThemeContext)
 
   return (
     <>
