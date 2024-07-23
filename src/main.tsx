@@ -12,6 +12,7 @@ import { Posts } from "./pages/posts"
 import { Followers } from "./pages/followers"
 import { Following } from "./pages/following"
 import { UserProfile } from "./pages/user-profile"
+import { Auth } from "./pages/auth"
 
 const container = document.getElementById("root")
 
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/auth",
-    element: <h1>auth</h1>,
+    element: <Auth />,
   },
 ])
 
