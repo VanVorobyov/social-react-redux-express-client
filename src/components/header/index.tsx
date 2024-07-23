@@ -20,8 +20,10 @@ export const Header: FC = () => {
 
       <NavbarContent justify="end">
         <NavbarItem
+          tabIndex={1}
           className={`lg:flex text3xl cursor-pointer`}
           onClick={() => toggleTheme()}
+          onKeyDown={e => e.key === "Enter" && toggleTheme()}
         >
           {theme === "light" ? <FaRegMoon /> : <LuSunMedium />}
         </NavbarItem>
