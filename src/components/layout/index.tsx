@@ -4,6 +4,7 @@ import { Footer } from "../footer"
 import { Outlet } from "react-router-dom"
 import { ThemeContext } from "../theme-provider"
 import { Container } from "../container/Container"
+import { NavBar } from "../nav-bar"
 
 export const Layout: FC = () => {
   const { theme } = useContext(ThemeContext)
@@ -16,8 +17,12 @@ export const Layout: FC = () => {
         role="main"
       >
         <Container>
-          <p>привет</p>
-          <Outlet />
+          <div className="flex-2 p-4">
+            <NavBar />
+          </div>
+          <div className="flex-2 p-4">
+            <Outlet />
+          </div>
         </Container>
       </main>
       <Footer />
