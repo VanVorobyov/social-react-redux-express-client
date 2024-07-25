@@ -1,7 +1,10 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Input } from "../components/Input"
 import { Button, Link } from "@nextui-org/react"
+import { useLazyCurrentQuery, useLoginMutation } from "../services/userApi"
+import { useNavigate } from "react-router-dom"
+import { hasErrorField } from "../utils/has-error-field"
 
 export interface ILoginProps {
   setSelected: (key: string) => void
@@ -26,21 +29,41 @@ export const Login: FC<ILoginProps> = ({ setSelected }) => {
     },
   })
 
+  const [login, { isLoading }] = useLoginMutation()
+  const navigate = useNavigate()
+  const [error, setError] = useState("")
+  const [triggerCurrentQuery] = useLazyCurrentQuery()
+
+  const onSubmit = async (data: Login) => {
+    try {
+      console.log(`data --> `, data)
+      const result = await login(data).unwrap()
+      console.log(`result --> `, result)
+      // await triggerCurrentQuery()
+      // navigate("/")
+    } catch (err) {
+      console.log(`error --> `, err)
+      if (hasErrorField(err)) {
+        setError(err.data.error)
+      }
+    }
+  }
+
   return (
-    <form className={`flex flex-col gap-4`}>
+    <form className={`flex flex-col gap-4`} onSubmit={handleSubmit(onSubmit)}>
       <Input
         control={control}
         name="email"
         label="Email"
         type="email"
-        required={true}
+        required={"Обязательно поле"}
       />
       <Input
         control={control}
         name="password"
         label="Password"
         type="password"
-        required={true}
+        required={"Обязательно поле"}
       />
       <p className="text-center text-small">
         Нет аккаунта?&ensp;
@@ -53,7 +76,7 @@ export const Login: FC<ILoginProps> = ({ setSelected }) => {
         </Link>
       </p>
       <div className="flex gap-2 justify-end">
-        <Button fullWidth color="primary" type="submit">
+        <Button fullWidth color="primary" type="submit" isLoading={isLoading}>
           Войти
         </Button>
       </div>

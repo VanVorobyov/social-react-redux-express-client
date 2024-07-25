@@ -1,23 +1,23 @@
 import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react"
 import { BASE_URL } from "../utils/constants"
-import { RootState } from "../app/store"
 
 // Настройка базового запроса с URL и заголовками
 const baseQuery = fetchBaseQuery({
   // Установка базового URL для всех запросов API
   baseUrl: `${BASE_URL}/api`,
   // Функция для подготовки заголовков перед каждым запросом
-  prepareHeaders: (headers, { getState }) => {
-    // Получение токена из состояния или локального хранилища
-    const token =
-      (getState() as RootState).auth.token || localStorage.getItem("token")
-    // Установка заголовка Authorization с токеном, если он существует
-    if (token) {
-      headers.set("Authorization", `Bearer ${token}`)
-    }
-    // Возврат заголовков
-    return headers
-  },
+  // prepareHeaders: (headers, { getState }) => {
+  //   const state = getState() as RootState
+  //   console.log("State:", state)
+  //   // Получение токена из состояния auth или из localStorage
+  //   const token = state.auth?.token || localStorage.getItem("token")
+  //   console.log("Token:", token)
+  //   // Установка заголовка Authorization с токеном, если он существует
+  //   if (token) {
+  //     headers.set("Authorization", `Bearer ${token}`)
+  //   }
+  //   return headers
+  // },
 })
 
 // Настройка базового запроса с повторными попытками в случае ошибки
@@ -28,10 +28,10 @@ const baseQueryWithRetry = retry(baseQuery, {
 
 // Создание API с использованием базового запроса с повторными попытками
 export const api = createApi({
-  // Использование настроенного базового запроса с повторными попытками
-  baseQuery: baseQueryWithRetry,
   // Путь к редюсеру в хранилище Redux
   reducerPath: "splitApi", // splitApi это уникальный ключ - имя пути, может быть любым
+  // Использование настроенного базового запроса с повторными попытками
+  baseQuery: baseQueryWithRetry,
   // Повторный запрос при монтировании компонента или изменении аргументов
   refetchOnMountOrArgChange: true,
   // Определение эндпоинтов API

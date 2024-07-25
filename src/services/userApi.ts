@@ -10,10 +10,10 @@ export const UserApi = api.injectEndpoints({
       { token: string }, // Тип возвращаемых данных (ответ от сервера)
       { email: string; password: string } // Тип данных, которые отправляются в запросе (тело запроса)
     >({
-      query: userData => ({
+      query: body => ({
         url: "/login", // URL для логина
         method: "POST", // Метод запроса
-        body: userData, // Тело запроса, содержащее данные пользователя
+        body, // Тело запроса, содержащее данные пользователя
       }),
     }),
 
