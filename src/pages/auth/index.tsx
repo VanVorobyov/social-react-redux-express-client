@@ -1,6 +1,7 @@
 import { FC, useState } from "react"
 import { Card, CardBody, Tab, Tabs } from "@nextui-org/react"
 import { Login } from "../../feature/login"
+import { Register } from "../../feature/register"
 
 export interface IAuthProps {}
 
@@ -22,7 +23,7 @@ export const Auth: FC<IAuthProps> = () => {
                 <Login setSelected={setSelected} />
               </Tab>
               <Tab key={"register"} title={`Регистрация`}>
-                Регистрация
+                <Register setSelected={setSelected} />
               </Tab>
             </Tabs>
           </CardBody>
