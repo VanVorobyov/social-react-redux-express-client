@@ -5,6 +5,7 @@ import { Button, Link } from "@nextui-org/react"
 import { useLazyCurrentQuery, useLoginMutation } from "../services/userApi"
 import { useNavigate } from "react-router-dom"
 import { hasErrorField } from "../utils/has-error-field"
+import { Modal } from "../components/modal"
 
 export interface ILoginProps {
   setSelected: (key: string) => void
@@ -31,55 +32,78 @@ export const Login: FC<ILoginProps> = ({ setSelected }) => {
 
   const [login, { isLoading }] = useLoginMutation()
   const navigate = useNavigate()
-  const [error, setError] = useState("")
   const [triggerCurrentQuery] = useLazyCurrentQuery()
+  const [error, setError] = useState("")
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const onSubmit = async (data: Login) => {
     try {
-      console.log(`data --> `, data)
       const result = await login(data).unwrap()
-      console.log(`result --> `, result)
-      // await triggerCurrentQuery()
-      // navigate("/")
+      setError("")
+      setIsModalOpen(true)
     } catch (err) {
-      console.log(`error --> `, err)
       if (hasErrorField(err)) {
         setError(err.data.error)
+        setIsModalOpen(true)
       }
     }
   }
 
+  console.log(`isModalOpen --> `, isModalOpen)
+
   return (
-    <form className={`flex flex-col gap-4`} onSubmit={handleSubmit(onSubmit)}>
-      <Input
-        control={control}
-        name="email"
-        label="Email"
-        type="email"
-        required={"Обязательно поле"}
-      />
-      <Input
-        control={control}
-        name="password"
-        label="Password"
-        type="password"
-        required={"Обязательно поле"}
-      />
-      <p className="text-center text-small">
-        Нет аккаунта?&ensp;
-        <Link
-          size="sm"
-          className="cursor-pointer"
-          onPress={() => setSelected("sign-up")}
-        >
-          Зарегистрируйтесь
-        </Link>
-      </p>
-      <div className="flex gap-2 justify-end">
-        <Button fullWidth color="primary" type="submit" isLoading={isLoading}>
-          Войти
-        </Button>
-      </div>
-    </form>
+    <>
+      <form className={`flex flex-col gap-4`} onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          control={control}
+          name="email"
+          label="Email"
+          type="email"
+          required={"Обязательно поле"}
+        />
+        <Input
+          control={control}
+          name="password"
+          label="Password"
+          type="password"
+          required={"Обязательно поле"}
+        />
+        <p className="text-center text-small">
+          Нет аккаунта?&ensp;
+          <Link
+            size="sm"
+            className="cursor-pointer"
+            onPress={() => setSelected("register")}
+          >
+            Зарегистрируйтесь
+          </Link>
+        </p>
+        <div className="flex gap-2 justify-end">
+          <Button fullWidth color="primary" type="submit" isLoading={isLoading}>
+            Войти
+          </Button>
+        </div>
+      </form>
+
+      {isModalOpen && (
+        <Modal>
+          <div className="flex flex-col gap-2 items-center justify-center absolute z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 min-h-fit p-8 bg-white rounded-lg">
+            {error === "" && (
+              <div>
+                Успешно!
+                <Button onClick={() => navigate("/")} color="primary">
+                  Перейти на главную
+                </Button>
+              </div>
+            )}
+
+            {error !== "" && <p className={`text-center`}>{error}</p>}
+            <Button color={`primary`} onClick={() => setIsModalOpen(false)}>
+              Попробовать еще раз
+            </Button>
+          </div>
+        </Modal>
+      )}
+    </>
   )
 }

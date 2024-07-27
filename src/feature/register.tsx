@@ -72,7 +72,7 @@ export const Register: FC<TRegisterProps> = ({ setSelected }) => {
         <Link
           size="sm"
           className="cursor-pointer"
-          onPress={() => setSelected("sign-in")}
+          onPress={() => setSelected("login")}
         >
           Войти
         </Link>
