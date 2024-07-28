@@ -39,8 +39,8 @@ export const Login: FC<ILoginProps> = ({ setSelected }) => {
   const onSubmit = async (data: Login) => {
     try {
       const result = await login(data).unwrap()
-      setError("")
-      setIsModalOpen(true)
+      await triggerCurrentQuery()
+      navigate(`/`)
     } catch (err) {
       if (hasErrorField(err)) {
         setError(err.data.error)
@@ -88,19 +88,15 @@ export const Login: FC<ILoginProps> = ({ setSelected }) => {
       {isModalOpen && (
         <Modal>
           <div className="flex flex-col gap-2 items-center justify-center absolute z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 min-h-fit p-8 bg-white rounded-lg">
-            {error === "" && (
-              <div>
-                Успешно!
-                <Button onClick={() => navigate("/")} color="primary">
-                  Перейти на главную
-                </Button>
-              </div>
-            )}
+            {error !== "" && (
+              <p className={`text-center`}>
+                {error}
 
-            {error !== "" && <p className={`text-center`}>{error}</p>}
-            <Button color={`primary`} onClick={() => setIsModalOpen(false)}>
-              Попробовать еще раз
-            </Button>
+                <Button color={`primary`} onClick={() => setIsModalOpen(false)}>
+                  Попробовать еще раз
+                </Button>
+              </p>
+            )}
           </div>
         </Modal>
       )}
