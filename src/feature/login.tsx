@@ -38,7 +38,7 @@ export const Login: FC<ILoginProps> = ({ setSelected }) => {
 
   const onSubmit = async (data: Login) => {
     try {
-      const result = await login(data).unwrap()
+      await login(data).unwrap()
       await triggerCurrentQuery()
       navigate(`/`)
     } catch (err) {
@@ -48,8 +48,6 @@ export const Login: FC<ILoginProps> = ({ setSelected }) => {
       }
     }
   }
-
-  console.log(`isModalOpen --> `, isModalOpen)
 
   return (
     <>
