@@ -1,6 +1,7 @@
 // Импорт api, созданного в другом файле
 import { api } from "./api"
 import { User } from "../utils/types"
+import { RootState } from "../app/store"
 
 // добавляем эндпоинты в api в endpoints: () => ({})
 export const UserApi = api.injectEndpoints({
@@ -56,7 +57,7 @@ export const UserApi = api.injectEndpoints({
   }),
 })
 
-// Экспортируем автоматически сгенерированные хуки
+// Экспортируем автоматически сгенерированные хуки для эндпоинтов чтобы можно было дергать запросы
 export const {
   // хук выполняет запрос автоматически, когда компонент монтируется или изменяется
   useLoginMutation,
@@ -69,7 +70,22 @@ export const {
   useLazyGetUserByIdQuery,
 } = UserApi
 
-// Экспортируем эндпоинты
+// Экспортируем эндпоинты по которым можно дергать запросы из хранилища
 export const {
   endpoints: { login, register, current, getUserById, updateUser },
 } = UserApi
+
+// Экспортируем селекторы по которым можно получить данные из хранилища
+
+// Возвращает статус аутентификации пользователя из состояния
+export const selectIsAuthenticated = (state: RootState) =>
+  state.user.isAuthenticated
+
+// Возвращает данные текущего пользователя из состояния
+export const selectCurrent = (state: RootState) => state.user.current
+
+// Возвращает список пользователей из состояния
+export const selectUsers = (state: RootState) => state.user.users
+
+// Возвращает данные пользователя из состояния
+export const selectUser = (state: RootState) => state.user.user
