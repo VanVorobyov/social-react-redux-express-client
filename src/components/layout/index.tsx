@@ -1,13 +1,24 @@
-import React, { FC, useContext } from "react"
+import React, { FC, useContext, useEffect } from "react"
 import { Header } from "../header"
 import { Footer } from "../footer"
-import { Outlet } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 import { ThemeContext } from "../theme-provider"
 import { Container } from "../container/Container"
 import { NavBar } from "../nav-bar"
+import { useSelector } from "react-redux"
+import { selectIsAuthenticated, selectUser } from "../../services/userApi"
 
 export const Layout: FC = () => {
   const { theme } = useContext(ThemeContext)
+  const isAuthenticated = useSelector(selectIsAuthenticated)
+  const user = useSelector(selectUser)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!isAuthenticated && !user) {
+      navigate("/auth")
+    }
+  }, [])
 
   return (
     <>
