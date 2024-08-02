@@ -34,6 +34,7 @@ export const Layout: FC = () => {
           <div className="flex-2 p-4">
             <Outlet />
           </div>
+          <div className="flex-2 p-4">profile</div>
         </Container>
       </main>
       <Footer />
