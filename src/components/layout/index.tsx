@@ -7,6 +7,7 @@ import { Container } from "../container/Container"
 import { NavBar } from "../nav-bar"
 import { useSelector } from "react-redux"
 import { selectIsAuthenticated, selectUser } from "../../services/userApi"
+import { Profile } from "../profile"
 
 export const Layout: FC = () => {
   const { theme } = useContext(ThemeContext)
@@ -34,7 +35,9 @@ export const Layout: FC = () => {
           <div className="flex-2 p-4">
             <Outlet />
           </div>
-          <div className="flex-2 p-4">profile</div>
+          <div className="flex-2 p-4">
+            <Profile />
+          </div>
         </Container>
       </main>
       <Footer />
