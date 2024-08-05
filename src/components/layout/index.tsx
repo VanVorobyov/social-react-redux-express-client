@@ -36,7 +36,7 @@ export const Layout: FC = () => {
             <Outlet />
           </div>
           <div className="flex-2 p-4">
-            <Profile />
+            <div className="flex-col flex gap-5">{!user && <Profile />}</div>
           </div>
         </Container>
       </main>
