@@ -10,7 +10,7 @@ export const Container: FC<IContainerProps> = ({ children }) => {
 
   return (
     <div
-      className={`${theme} text-foreground bg-background flex max-w-screen-xl mx-auto `}
+      className={`${theme} text-foreground bg-background flex max-w-screen mx-auto `}
     >
       {children}
     </div>

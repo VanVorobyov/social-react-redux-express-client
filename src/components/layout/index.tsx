@@ -25,14 +25,14 @@ export const Layout: FC = () => {
     <>
       <Header />
       <main
-        className={`${theme} min-h-screen text-foreground bg-background`}
+        className={`${theme} w-full min-h-screen text-foreground bg-background`}
         role="main"
       >
         <Container>
           <div className="flex-2 p-4">
             <NavBar />
           </div>
-          <div className="flex-2 p-4">
+          <div className="flex-1 p-4">
             <Outlet />
           </div>
           <div className="flex-2 p-4">
