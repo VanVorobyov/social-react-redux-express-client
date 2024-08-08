@@ -5,6 +5,7 @@ import {
   useLazyGetAllPostsQuery,
 } from "../../services/postApi"
 import { Controller, useForm } from "react-hook-form"
+import { ErrorMessage } from "../error-message"
 
 export const CreatePost = () => {
   const [createPost] = useCreatePostMutation()
@@ -45,7 +46,7 @@ export const CreatePost = () => {
           />
         )}
       />
-      {error && <p className="text-red-500 mt-2 mb-5 text-small">{error}</p>}
+      {errors && <ErrorMessage error={error} />}
       <Button
         color="success"
         className="flex-end"
