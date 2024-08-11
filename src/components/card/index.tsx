@@ -1,6 +1,11 @@
 import { FC, useState } from "react"
 
-import { Card as NextUiCard, CardHeader, Spinner } from "@nextui-org/react"
+import {
+  Card as NextUiCard,
+  CardBody,
+  CardHeader,
+  Spinner,
+} from "@nextui-org/react"
 import {
   useDislikePostMutation,
   useLikePostMutation,
@@ -18,6 +23,7 @@ import { User } from "../user"
 import { formatToClientDate } from "../../utils/format-to-client-date"
 import { RiDeleteBinLine } from "react-icons/ri"
 import { hasErrorField } from "../../utils/has-error-field"
+import { Typography } from "../typography"
 
 type TCardProps = {
   avatarUrl: string
@@ -88,6 +94,9 @@ export const Card: FC<TCardProps> = ({
           </div>
         )}
       </CardHeader>
+      <CardBody className="px-3 py-2 mb-5">
+        <Typography>{content}</Typography>
+      </CardBody>
     </NextUiCard>
   )
 }
