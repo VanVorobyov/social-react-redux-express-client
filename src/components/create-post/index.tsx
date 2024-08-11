@@ -6,6 +6,7 @@ import {
 } from "../../services/postApi"
 import { Controller, useForm } from "react-hook-form"
 import { ErrorMessage } from "../error-message"
+import { hasErrorField } from "../../utils/has-error-field"
 
 export const CreatePost = () => {
   const [createPost] = useCreatePostMutation()
@@ -23,7 +24,9 @@ export const CreatePost = () => {
       setValue("post", "")
       await triggerGetAllPosts().unwrap()
     } catch (error) {
-      console.log("err", error)
+      if (hasErrorField(error)) {
+        throw new Error(error.data.error)
+      }
     }
   })
   const error = errors?.post?.message as string

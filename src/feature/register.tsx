@@ -34,7 +34,6 @@ export const Register: FC<TRegisterProps> = ({ setSelected }) => {
 
   const onSubmit = async (data: Register) => {
     try {
-      console.log(data)
       const result = await register(data).unwrap()
       setSelected("login")
     } catch (error) {

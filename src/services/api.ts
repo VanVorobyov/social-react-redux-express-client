@@ -26,10 +26,8 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers, { getState }) => {
     // Извлечение состояния приложения
     const state = getState() as RootState
-    console.log("State:", state)
     // Получение токена из состояния user или из localStorage
     const token = state.user.token || localStorage.getItem("token")
-    console.log("Token:", token)
     // Установка заголовка Authorization с токеном, если он существует
     if (token) {
       headers.set("Authorization", `Bearer ${token}`)
