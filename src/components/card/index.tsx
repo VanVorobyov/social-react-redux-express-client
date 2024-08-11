@@ -68,10 +68,49 @@ export const Card: FC<TCardProps> = ({
   const [error, setError] = useState("")
   const navigate = useNavigate()
 
+  const refetchPosts = async () => {
+    try {
+      switch (cardFor) {
+        case "post":
+          await triggerGetAllPosts().unwrap()
+          break
+        case "comment":
+          await triggerGetAllPosts().unwrap()
+          break
+        case "current-post":
+          await triggerGetPostById(id).unwrap()
+          break
+        default:
+          throw new Error("Не удалось запросить посты повторно")
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error("Error: ", err.message)
+      }
+      if (hasErrorField(err)) {
+        setError(err.data.error)
+      }
+    }
+  }
+
   const handleDeletePost = async () => {
     try {
-      await deletePost(id).unwrap()
-      await triggerGetAllPosts().unwrap()
+      switch (cardFor) {
+        case "post":
+          await deletePost(id).unwrap()
+          await refetchPosts()
+          break
+        case "current-post":
+          await deletePost(id).unwrap()
+          navigate("/")
+          break
+        case "comment":
+          await deleteComment(commentId).unwrap()
+          await refetchPosts()
+          break
+        default:
+          throw new Error("")
+      }
     } catch (err) {
       if (hasErrorField(err)) {
         setError(err.data.error)
