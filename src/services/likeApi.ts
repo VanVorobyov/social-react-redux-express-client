@@ -11,15 +11,16 @@ export const likeApi = api.injectEndpoints({
       { postId: string } // Тип данных, которые отправляются в запросе (тело запроса)
     >({
       query: postId => ({
-        url: `/likes/${postId}`, // URL для лайка поста
+        url: `/likes`, // URL для лайка поста
         method: "POST", // Метод запроса
+        body: postId,
       }),
     }),
 
     // Эндпоинт для дизлайка поста
     dislikePost: builder.mutation<
       void, // Тип возвращаемых данных (ответ от сервера)
-      { postId: string } // Тип данных, которые отправляются в запросе (тело запроса)
+      string // Тип данных, которые отправляются в запросе (тело запроса)
     >({
       query: postId => ({
         url: `/likes/${postId}`, // URL для дизлайка поста

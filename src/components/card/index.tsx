@@ -25,11 +25,11 @@ import { formatToClientDate } from "../../utils/format-to-client-date"
 import { RiDeleteBinLine } from "react-icons/ri"
 import { hasErrorField } from "../../utils/has-error-field"
 import { Typography } from "../typography"
-import { FcDislike } from "react-icons/fc"
 import { MdOutlineFavoriteBorder } from "react-icons/md"
 import { FaRegComment } from "react-icons/fa"
 import { ErrorMessage } from "../error-message"
 import { MetaInfo } from "../meta-info"
+import { FcLike } from "react-icons/fc"
 
 type TCardProps = {
   avatarUrl: string
@@ -118,6 +118,22 @@ export const Card: FC<TCardProps> = ({
     }
   }
 
+  const handleClick = async () => {
+    try {
+      likedByUser
+        ? await dislikePost(id).unwrap()
+        : await likePost({ postId: id }).unwrap()
+      await refetchPosts()
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error("Error (catch) in handleClick: ", err.message)
+      }
+      if (hasErrorField(err)) {
+        setError(err.data.error)
+      }
+    }
+  }
+
   return (
     <NextUiCard className="mb-5">
       <CardHeader className="justify-between items-center bg-transparent">
@@ -145,10 +161,10 @@ export const Card: FC<TCardProps> = ({
       {cardFor !== "comment" && (
         <CardFooter className="gap-3">
           <div className="flex gap-5 items-center">
-            <div>
+            <div onClick={handleClick}>
               <MetaInfo
                 count={likesCount}
-                Icon={likedByUser ? FcDislike : MdOutlineFavoriteBorder}
+                Icon={likedByUser ? FcLike : MdOutlineFavoriteBorder}
               />
             </div>
             <Link to={`/posts/${id}`}>
