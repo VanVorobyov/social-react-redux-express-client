@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
 import { useGetPostByIdQuery } from "../../services/postApi"
 import { Card } from "../../components/card"
+import { GoBack } from "../../components/go-back"
 
 export const CurrentPost = () => {
   const params = useParams<{ id: string }>()
@@ -23,7 +24,7 @@ export const CurrentPost = () => {
 
   return (
     <>
-      {/*<GoBack />*/}
+      <GoBack />
       <Card
         cardFor="current-post"
         avatarUrl={author?.avatarUrl ?? ""}
