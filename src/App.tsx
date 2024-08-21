@@ -4,6 +4,7 @@ import { useContext } from "react"
 
 const App = () => {
   const { theme, toggleTheme } = useContext(ThemeContext)
+  console.log(`theme --> `, theme)
 
   return (
     <>
