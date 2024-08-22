@@ -44,8 +44,6 @@ export const UserProfile = () => {
     [],
   )
 
-  console.log(`test --> `, test)
-
   const handleFollow = async () => {
     try {
       if (id) {
